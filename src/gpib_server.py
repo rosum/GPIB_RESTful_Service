@@ -31,10 +31,22 @@ class GpibQueryApi(Resource):
         query = request.args.get('q')
         return gpip_service.write_gpib(adress, query)
 
+class GpibQueryApiMultiple(Resource):
+
+    def post(self, adress, count):
+        query = request.args.get('q')
+        responses = []
+
+        for x in range(0, count, 1):
+            responses.append(gpip_service.gpib_write_read(adress, query))
+
+        return responses
+
 
 
 api.add_resource(GpibRegisterApi, '/instrument/register/adress/<int:adress>')
 api.add_resource(GpibQueryApi, '/instrument/adress/<int:adress>')
+api.add_resource(GpibQueryApiMultiple, '/instrument/adress/<int:adress>/count/<int:count>')
 
 if __name__ == '__main__':
     app.run(debug=True)
