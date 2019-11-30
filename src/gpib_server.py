@@ -1,5 +1,5 @@
 from flask import Flask, request
-from flask_restful import Resource, Api
+from flask_restplus import Resource, Api
 from GpibService import GpibService
 
 gpip_service = GpibService()
@@ -29,12 +29,12 @@ class GpibQueryApi(Resource):
 
     def put(self, adress):
         query = request.args.get('q')
-        return gpip_service.gpib_write(adress, query)
+        return gpip_service.write_gpib(adress, query)
 
 
 
-api.add_resource(GpibRegisterApi, '/instrument/register/adress/<int:address>')
-api.add_resource(GpibQueryApi, '/instrument/adress/<int:address>')
+api.add_resource(GpibRegisterApi, '/instrument/register/adress/<int:adress>')
+api.add_resource(GpibQueryApi, '/instrument/adress/<int:adress>')
 
 if __name__ == '__main__':
     app.run(debug=True)
