@@ -44,7 +44,7 @@ class GpibQueryApiMultiple(Resource):
 
 
 
-api.add_resource(GpibRegisterApi, '/instrument/register/adress/<int:adress>')
+api.add_resource(GpibRegisterApi, '/instrument/adress/<int:adress>/register')
 api.add_resource(GpibQueryApi, '/instrument/adress/<int:adress>')
 api.add_resource(GpibQueryApiMultiple, '/instrument/adress/<int:adress>/count/<int:count>')
 
